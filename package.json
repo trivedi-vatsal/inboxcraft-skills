@@ -1,0 +1,19 @@
+{
+  "name": "inboxcraft-skills",
+  "version": "1.0.0",
+  "description": "Agent skills for InboxCraft, enabling AI coding agents to generate Outlook rules and follow community best practices.",
+  "keywords": [
+    "agent-skills",
+    "ai",
+    "inboxcraft",
+    "powershell",
+    "outlook",
+    "development"
+  ],
+  "author": "Vatsal Trivedi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trivedi-vatsal/inboxcraft-skills"
+  }
+}
