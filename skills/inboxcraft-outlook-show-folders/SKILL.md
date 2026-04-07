@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-show-folders
-description: Generate a PowerShell script to list the Outlook inbox folder tree structure.
+description: Recursively traverses and prints the visual tree-like hierarchy of the Outlook inbox.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Show Folders

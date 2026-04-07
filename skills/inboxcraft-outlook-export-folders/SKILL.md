@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-export-folders
-description: Generate a PowerShell script to export Outlook folder structure to a CSV or JSON file.
+description: Recursively reads the Outlook folder structure and exports paths and item counts to a file.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Export Folders

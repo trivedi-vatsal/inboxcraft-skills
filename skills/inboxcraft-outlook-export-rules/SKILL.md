@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-export-rules
-description: Generate a PowerShell script to export Outlook rules to a CSV or JSON file.
+description: Gathers Outlook inbox rules and exports them to a JSON or CSV file for sharing or backup.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Export Rules

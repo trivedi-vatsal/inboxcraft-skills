@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-rules
-description: Generate an idempotent PowerShell script for Outlook inbox rules combining COM execution and Exchange Online fallback.
+description: Configures Outlook Inbox Rules leveraging COM for folders and Exchange Online for server rules.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Rules Generator

@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-show-rules
-description: Generate a PowerShell script to list all existing Outlook rules directly in the console.
+description: Fetches and displays all existing Inbox rules and their status in the console.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Show Rules

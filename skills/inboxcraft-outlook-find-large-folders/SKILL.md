@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-find-large-folders
-description: Generate a PowerShell script to scan Outlook and print folders consuming the most space or having the highest item count.
+description: Scans Outlook to find and report the top folders consuming the most space or item count.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Find Large Folders

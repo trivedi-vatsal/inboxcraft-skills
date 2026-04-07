@@ -1,6 +1,7 @@
 ---
 name: inboxcraft-outlook-export-categories
-description: Generate a PowerShell script to list or export the custom Outlook Categories (color labels) in the user's profile.
+description: Extracts all custom Outlook Categories and color labels for backup or inspection.
+version: 1.0.0
 ---
 
 # InboxCraft Outlook Export Categories
