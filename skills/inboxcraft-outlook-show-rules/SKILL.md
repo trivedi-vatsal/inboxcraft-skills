@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-show-rules
 description: Fetches and displays all existing Inbox rules and their status in the console.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Show Rules

@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-disable-all-rules
 description: Safely unchecks and pauses all active Outlook inbox rules without deleting them.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Disable All Rules

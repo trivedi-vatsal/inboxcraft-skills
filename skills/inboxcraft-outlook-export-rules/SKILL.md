@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-export-rules
 description: Gathers Outlook inbox rules and exports them to a JSON or CSV file for sharing or backup.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.1.0"
 ---
 
 # InboxCraft Outlook Export Rules

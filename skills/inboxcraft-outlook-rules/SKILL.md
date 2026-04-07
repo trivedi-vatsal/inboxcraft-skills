@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-rules
 description: Configures Outlook Inbox Rules leveraging COM for folders and Exchange Online for server rules.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Rules Generator

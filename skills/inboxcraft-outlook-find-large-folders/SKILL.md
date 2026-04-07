@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-find-large-folders
 description: Scans Outlook to find and report the top folders consuming the most space or item count.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Find Large Folders

@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-export-categories
 description: Extracts all custom Outlook Categories and color labels for backup or inspection.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Export Categories

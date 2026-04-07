@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-export-folders
 description: Recursively reads the Outlook folder structure and exports paths and item counts to a file.
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.1.0"
 ---
 
 # InboxCraft Outlook Export Folders

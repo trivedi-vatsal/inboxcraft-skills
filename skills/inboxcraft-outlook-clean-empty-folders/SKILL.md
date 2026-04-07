@@ -1,6 +1,10 @@
 ---
 name: inboxcraft-outlook-clean-empty-folders
 description: Tracks down and safely deletes completely empty Outlook subfolders (includes Dry Run mode).
+license: MIT
+metadata:
+  author: "trivedi-vatsal<trivedivatsal005@gmail.com>"
+  version: "1.0.0"
 ---
 
 # InboxCraft Outlook Clean Empty Folders
