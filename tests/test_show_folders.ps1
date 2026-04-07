@@ -22,17 +22,16 @@ function Print-FolderTree {
 try {
     $outlook = New-Object -ComObject Outlook.Application
     $namespace = $outlook.GetNamespace("MAPI")
-    $inbox = $namespace.GetDefaultFolder(6) # 6 = olFolderInbox
-    # Simple check to enforce fallback if COM is broken
-    $testFolder = $inbox.Folders
+    $rootFolder = $namespace.DefaultStore.GetRootFolder()
+    $testFolder = $rootFolder.Folders
     $comAvailable = $true
 } catch {
     Write-Host "Outlook COM unavailable." -ForegroundColor Yellow
 }
 
 if ($comAvailable) {
-    Write-Host "`nInbox Root (via COM):" -ForegroundColor Green
-    Print-FolderTree -Folder $inbox -IndentLevel 0
+    Write-Host "`nMailbox Root (via COM):" -ForegroundColor Green
+    foreach ($folder in $rootFolder.Folders) { Print-FolderTree -Folder $folder -IndentLevel 0 }
 } else {
     Write-Host "Falling back to Exchange Online..." -ForegroundColor Cyan
     $userEmail = (whoami /upn 2>$null).Trim()
@@ -45,9 +44,8 @@ if ($comAvailable) {
         Connect-ExchangeOnline -UserPrincipalName $userEmail -ShowBanner:$false
         $exoConnected = $true
 
-        Write-Host "`nInbox Root (via Exchange):" -ForegroundColor Green
+        Write-Host "`nMailbox Root (via Exchange):" -ForegroundColor Green
         $folders = Get-MailboxFolderStatistics -Identity $userEmail -ErrorAction Stop | 
-            Where-Object { $_.FolderPath -match "^/Inbox" } | 
             Sort-Object FolderPath
 
         foreach ($folder in $folders) {

@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 $comAvailable = $false
 $exoConnected = $false
-$exportPath = Join-Path -Path [Environment]::GetFolderPath("Desktop") -ChildPath "OutlookFolders_Export.csv"
+$exportPath = Join-Path -Path $PWD -ChildPath "OutlookFolders_Export.csv"
 $global:exportData = @()
 
 Write-Host "Fetching Folder structure to export to: $exportPath" -ForegroundColor Cyan
@@ -18,15 +18,15 @@ function Gather-FolderNodes {
 try {
     $outlook = New-Object -ComObject Outlook.Application
     $namespace = $outlook.GetNamespace("MAPI")
-    $inbox = $namespace.GetDefaultFolder(6)
-    $testFolder = $inbox.Folders
+    $rootFolder = $namespace.DefaultStore.GetRootFolder()
+    $testFolder = $rootFolder.Folders
     $comAvailable = $true
 } catch {
     Write-Host "Outlook COM unavailable." -ForegroundColor Yellow
 }
 
 if ($comAvailable) {
-    Gather-FolderNodes -Folder $inbox
+    foreach ($folder in $rootFolder.Folders) { Gather-FolderNodes -Folder $folder }
 } else {
     Write-Host "Falling back to Exchange Online..." -ForegroundColor Cyan
     $userEmail = (whoami /upn 2>$null).Trim()

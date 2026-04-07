@@ -15,7 +15,7 @@ Use this skill whenever the user asks to "export my outlook rules", "back up my 
 
 1. **Clarify Requirements:** Ask the user:
    - "Do you prefer the export in JSON or CSV format?"
-   - "Where would you like to save the file? (If not specified, I will default to your Desktop)."
+   - "Where would you like to save the file? (If not specified, I will default to your current directory)."
 
 2. **Generate Script:** Generate the following PowerShell script. Modify the `$exportPath` based on their answer, and replace `Export-Csv` with `ConvertTo-Json | Out-File` if they chose JSON.
 
@@ -27,7 +27,7 @@ $ErrorActionPreference = "Stop"
 
 $comAvailable = $false
 $exoConnected = $false
-$exportPath = Join-Path -Path [Environment]::GetFolderPath("Desktop") -ChildPath "OutlookRules_Export.csv"
+$exportPath = Join-Path -Path $PWD -ChildPath "OutlookRules_Export.csv"
 $exportData = @()
 
 Write-Host "Trying to fetch rules from Outlook COM to export to: $exportPath" -ForegroundColor Cyan
@@ -41,11 +41,20 @@ try {
 
 if ($comAvailable) {
     foreach ($rule in $rules) {
+        $details = ""
+        try { if ($rule.Conditions.From.Enabled) { $details += "[If From] " } } catch {}
+        try { if ($rule.Conditions.Subject.Enabled) { $details += "[If Subject] " } } catch {}
+        try { if ($rule.Conditions.SentTo.Enabled) { $details += "[If SentTo] " } } catch {}
+        try { if ($rule.Actions.MoveToFolder.Enabled) { $details += "[Move To: $($rule.Actions.MoveToFolder.Folder.Name)] " } } catch {}
+        try { if ($rule.Actions.Delete.Enabled -or $rule.Actions.DeletePermanently.Enabled) { $details += "[Delete] " } } catch {}
+        if ([string]::IsNullOrWhiteSpace($details)) { $details = "Complex logic - View in Outlook/Exchange" }
+
         $exportData += [PSCustomObject]@{
             Name = $rule.Name
             ExecutionOrder = $rule.ExecutionOrder
             Enabled = $rule.Enabled
             IsLocalRule = $rule.IsLocalRule
+            Details = $details.Trim()
             Source = "COM"
         }
     }
@@ -68,6 +77,7 @@ if ($comAvailable) {
                 ExecutionOrder = $rule.Priority
                 Enabled = $rule.Enabled
                 IsLocalRule = $false
+                Details = ($rule.Description -replace "`n", " " -replace "`r", "").Trim()
                 Source = "EXO"
             }
         }

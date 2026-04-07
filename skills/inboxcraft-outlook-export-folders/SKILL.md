@@ -15,7 +15,7 @@ Use this skill whenever the user asks to "export my outlook folders", "backup my
 
 1. **Clarify Requirements:** Ask the user:
    - "Do you prefer the export in JSON or CSV format?"
-   - "Where would you like to save the file? (If not specified, I will default to your Desktop)."
+   - "Where would you like to save the file? (If not specified, I will default to your current directory)."
 
 2. **Generate Script:** Generate exactly the following PowerShell script. Modify the `$exportPath` based on their answer, and replace `Export-Csv` with `ConvertTo-Json -Depth 10 | Out-File` if they chose JSON.
 
@@ -27,7 +27,7 @@ $ErrorActionPreference = "Stop"
 
 $comAvailable = $false
 $exoConnected = $false
-$exportPath = Join-Path -Path [Environment]::GetFolderPath("Desktop") -ChildPath "OutlookFolders_Export.csv"
+$exportPath = Join-Path -Path $PWD -ChildPath "OutlookFolders_Export.csv"
 $global:exportData = @()
 
 Write-Host "Fetching Folder structure to export to: $exportPath" -ForegroundColor Cyan
@@ -42,15 +42,15 @@ function Gather-FolderNodes {
 try {
     $outlook = New-Object -ComObject Outlook.Application
     $namespace = $outlook.GetNamespace("MAPI")
-    $inbox = $namespace.GetDefaultFolder(6)
-    $testFolder = $inbox.Folders
+    $rootFolder = $namespace.DefaultStore.GetRootFolder()
+    $testFolder = $rootFolder.Folders
     $comAvailable = $true
 } catch {
     Write-Host "Outlook COM unavailable." -ForegroundColor Yellow
 }
 
 if ($comAvailable) {
-    Gather-FolderNodes -Folder $inbox
+    foreach ($folder in $rootFolder.Folders) { Gather-FolderNodes -Folder $folder }
 } else {
     Write-Host "Falling back to Exchange Online..." -ForegroundColor Cyan
     $userEmail = (whoami /upn 2>$null).Trim()

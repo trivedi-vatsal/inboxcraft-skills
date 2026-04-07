@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 $comAvailable = $false
 $exoConnected = $false
-$exportPath = Join-Path -Path [Environment]::GetFolderPath("Desktop") -ChildPath "OutlookRules_Export.csv"
+$exportPath = Join-Path -Path $PWD -ChildPath "OutlookRules_Export.csv"
 $exportData = @()
 
 Write-Host "Trying to fetch rules from Outlook COM to export to: $exportPath" -ForegroundColor Cyan
@@ -17,11 +17,20 @@ try {
 
 if ($comAvailable) {
     foreach ($rule in $rules) {
+        $details = ""
+        try { if ($rule.Conditions.From.Enabled) { $details += "[If From] " } } catch {}
+        try { if ($rule.Conditions.Subject.Enabled) { $details += "[If Subject] " } } catch {}
+        try { if ($rule.Conditions.SentTo.Enabled) { $details += "[If SentTo] " } } catch {}
+        try { if ($rule.Actions.MoveToFolder.Enabled) { $details += "[Move To: $($rule.Actions.MoveToFolder.Folder.Name)] " } } catch {}
+        try { if ($rule.Actions.Delete.Enabled -or $rule.Actions.DeletePermanently.Enabled) { $details += "[Delete] " } } catch {}
+        if ([string]::IsNullOrWhiteSpace($details)) { $details = "Complex logic - View in Outlook/Exchange" }
+
         $exportData += [PSCustomObject]@{
             Name = $rule.Name
             ExecutionOrder = $rule.ExecutionOrder
             Enabled = $rule.Enabled
             IsLocalRule = $rule.IsLocalRule
+            Details = $details.Trim()
             Source = "COM"
         }
     }
@@ -44,6 +53,7 @@ if ($comAvailable) {
                 ExecutionOrder = $rule.Priority
                 Enabled = $rule.Enabled
                 IsLocalRule = $false
+                Details = ($rule.Description -replace "`n", " " -replace "`r", "").Trim()
                 Source = "EXO"
             }
         }
