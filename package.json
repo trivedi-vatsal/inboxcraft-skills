@@ -10,6 +10,11 @@
     "outlook",
     "development"
   ],
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "test": "npm run validate",
+    "clean": "Powershell -Command \"Remove-Item -Path tests/*.csv, tests/*.json, tests/*.xml -ErrorAction SilentlyContinue\""
+  },
   "author": "Vatsal Trivedi",
   "license": "MIT",
   "repository": {

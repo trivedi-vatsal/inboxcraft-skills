@@ -10,7 +10,7 @@ To quickly test the non-destructive skills on your local Outlook instance, open 
 .\run_all_tests.ps1
 ```
 
-This master runner will sequentially execute the safe, read-only testing scripts:
+This master runner will sequentially execute the safe, read-only testing scripts located in this directory:
 - `test_show_rules.ps1`
 - `test_show_folders.ps1`
 - `test_find_large_folders.ps1`
@@ -25,6 +25,15 @@ You must run these manually to test them:
 - **`test_export_folders.ps1`**: Exports your folder tree to a CSV file.
 - **`test_clean_empty_folders.ps1`**: Recursively deletes empty folders. *(Note: This script has `$DryRun = $true` set by default to prevent accidental deletion during testing).*
 - **`test_disable_all_rules.ps1`**: Unchecks/pauses all active Inbox rules. *(Note: This script has the save functionality commented out by default).*
+
+## Schema Validation
+
+To validate the repository's skills against the Agent Skills specification, use the following npm command from the repository root:
+
+```bash
+npm run validate
+```
+This runs the `scripts/validate.js` utility.
 
 ## Contributing
 
