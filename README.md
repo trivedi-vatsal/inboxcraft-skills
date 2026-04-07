@@ -31,3 +31,11 @@ If you only want to install an **individual skill**, you can use the `--skill` f
 ```bash
 npx skills add https://github.com/trivedi-vatsal/inboxcraft-skills --skill inboxcraft-outlook-export-rules --global
 ```
+
+## Updating
+
+If you need to update your locally installed skills to pull in the latest remote changes, simply run the installation command again with the `--force` flag:
+
+```bash
+npx skills add https://github.com/trivedi-vatsal/inboxcraft-skills --force
+```

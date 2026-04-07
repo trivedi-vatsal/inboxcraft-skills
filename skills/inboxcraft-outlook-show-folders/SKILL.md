@@ -1,7 +1,6 @@
 ---
 name: inboxcraft-outlook-show-folders
 description: Recursively traverses and prints the visual tree-like hierarchy of the Outlook inbox.
-version: 1.0.0
 ---
 
 # InboxCraft Outlook Show Folders
